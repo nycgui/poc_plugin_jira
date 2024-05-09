@@ -27,6 +27,12 @@ module Confluence
     linhas[1..-1].each do |linha|
       valores = linha.css('td').map { |td| td.text.strip }
 
+      semFormatar = linha.css('td').map { |td| td }
+      gherking = semFormatar.last
+      gherkingFormatado = Nokogiri::HTML.fragment(gherking).css('p').map(&:text)
+      gherkingFormatado = gherkingFormatado.map { |i| i.gsub(',', '\n') }.join("\n")
+
+      valores[-1] = gherkingFormatado
       agrupado = titulos.zip(valores)
       tabela << agrupado.to_h
     end
