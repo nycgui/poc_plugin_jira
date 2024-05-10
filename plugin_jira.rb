@@ -42,5 +42,5 @@ plugin = Plugin.new
 cenarios = plugin.cenarios_filtrados(idPagina, token)
 plugin.cria_cenarios_board(token, cenarios)
 
+# card = Jira.consulta_card('TES-86', token)
 # Jira.atualiza_status('TES-107', 'FAIL', token)
-

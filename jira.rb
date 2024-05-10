@@ -27,6 +27,17 @@ module Jira
     retorno = HTTParty.post(url, headers: headers, body: body.to_json)
   end
 
+  def consulta_card(idCard, token)
+    url = "https://nycnog.atlassian.net/rest/api/3/issue/#{idCard}"
+    headers = {
+      'Accept' => 'application/json',
+      'content-type' => 'application/json',
+      'Authorization' => "Basic #{token}"
+    }
+
+    HTTParty.get(url, headers: headers)
+  end
+
   def cria_card_jira_filho(token, idPai, idCt, nomeCt, gherking)
     url = "https://nycnog.atlassian.net/rest/api/3/issue?updateHistory=true&applyDefaultValues=false&skipAutoWatch=true"
     headers = {
@@ -113,8 +124,6 @@ module Jira
       "commentVisibility": ""
     }
 
-
-    binding.pry
     retorno = HTTParty.post(url, headers: headers, body: body.to_json)
   end
 
@@ -149,4 +158,5 @@ module Jira
   module_function :cria_card_jira_filho
   module_function :atualiza_status
   module_function :marca_card
+  module_function :consulta_card
 end
